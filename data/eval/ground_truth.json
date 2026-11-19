@@ -1,0 +1,86 @@
+[
+  {
+    "id": "eval_01_income_pdf",
+    "filename": "eval_01_income.pdf",
+    "doc_type": "income_certificate",
+    "ground_truth": {
+      "full_name": "Karthik Subramanian",
+      "annual_income": 210000.0,
+      "category": null,
+      "marks_percentage": null,
+      "course": "B.Sc. Physics",
+      "issue_date": "2026-09-05",
+      "issuing_authority": "Tahsildar, Madurai South"
+    }
+  },
+  {
+    "id": "eval_02_marks_pdf",
+    "filename": "eval_02_marks.pdf",
+    "doc_type": "marks_card",
+    "ground_truth": {
+      "full_name": "Meera Devi Nair",
+      "annual_income": null,
+      "category": null,
+      "marks_percentage": 78.4,
+      "course": "Diploma in Civil Engineering",
+      "issue_date": "2026-05-18",
+      "issuing_authority": "Board of Technical Education, Kerala"
+    }
+  },
+  {
+    "id": "eval_03_community_png",
+    "filename": "eval_03_community.png",
+    "doc_type": "community_certificate",
+    "ground_truth": {
+      "full_name": "Arjun Singh Rathore",
+      "annual_income": null,
+      "category": "SC",
+      "marks_percentage": null,
+      "course": null,
+      "issue_date": "2026-01-22",
+      "issuing_authority": "Sub-Divisional Magistrate, Jaipur"
+    }
+  },
+  {
+    "id": "eval_04_income_png",
+    "filename": "eval_04_income.png",
+    "doc_type": "income_certificate",
+    "ground_truth": {
+      "full_name": "Fatima Begum Ansari",
+      "annual_income": 96000.0,
+      "category": "OBC",
+      "marks_percentage": null,
+      "course": null,
+      "issue_date": "2026-07-12",
+      "issuing_authority": "Naib Tahsildar, Lucknow"
+    }
+  },
+  {
+    "id": "eval_05_marks_pdf",
+    "filename": "eval_05_marks.pdf",
+    "doc_type": "marks_card",
+    "ground_truth": {
+      "full_name": "Rohan Prakash Verma",
+      "annual_income": null,
+      "category": null,
+      "marks_percentage": 91.2,
+      "course": "Class 12 Science",
+      "issue_date": "2026-05-30",
+      "issuing_authority": "Central Board of Secondary Education"
+    }
+  },
+  {
+    "id": "eval_06_community_pdf",
+    "filename": "eval_06_community.pdf",
+    "doc_type": "community_certificate",
+    "ground_truth": {
+      "full_name": "Kavya Lakshmi Narayanan",
+      "annual_income": null,
+      "category": "ST",
+      "marks_percentage": null,
+      "course": "B.Tech Electrical Engineering",
+      "issue_date": "2025-12-04",
+      "issuing_authority": "District Collectorate, Coimbatore"
+    }
+  }
+]

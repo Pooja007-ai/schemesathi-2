@@ -1,0 +1,110 @@
+# SchemeSathi Placeholder Scholarship Rules
+#
+# IMPORTANT:
+# Every threshold below is marked "TODO_VERIFY". Do NOT use unverified numbers
+# for real applications. Replace each "TODO_VERIFY" only after checking the
+# official portal URL listed in source_url and updating last_verified.
+
+schemes:
+  - id: nsp_post_matric_sc
+    name: "Post-Matric Scholarship for SC Students (Placeholder)"
+    provider: "Ministry of Social Justice & Empowerment (NSP)"
+    level: "Central / Post-Matric"
+    source_url: "https://scholarships.gov.in/"
+    last_verified: "TODO_VERIFY"
+    validity_months: "TODO_VERIFY"
+    required_docs:
+      - income_certificate
+      - marks_card
+      - community_certificate
+    rules:
+      - field: "category"
+        op: "in"
+        value: "TODO_VERIFY"
+      - field: "annual_income"
+        op: "<="
+        value: "TODO_VERIFY"
+      - field: "marks_percentage"
+        op: ">="
+        value: "TODO_VERIFY"
+
+  - id: nsp_post_matric_obc
+    name: "PM-YASASVI Post-Matric Scholarship for OBC/EBC/DNT (Placeholder)"
+    provider: "Ministry of Social Justice & Empowerment (NSP)"
+    level: "Central / Post-Matric"
+    source_url: "https://scholarships.gov.in/"
+    last_verified: "TODO_VERIFY"
+    validity_months: "TODO_VERIFY"
+    required_docs:
+      - income_certificate
+      - marks_card
+      - community_certificate
+    rules:
+      - field: "category"
+        op: "in"
+        value: "TODO_VERIFY"
+      - field: "annual_income"
+        op: "<="
+        value: "TODO_VERIFY"
+      - field: "marks_percentage"
+        op: ">="
+        value: "TODO_VERIFY"
+
+  - id: nsp_central_sector_college
+    name: "Central Sector Scheme of Scholarship for College & University Students (Placeholder)"
+    provider: "Department of Higher Education (NSP)"
+    level: "Central / Undergraduate & Postgraduate"
+    source_url: "https://scholarships.gov.in/"
+    last_verified: "TODO_VERIFY"
+    validity_months: "TODO_VERIFY"
+    required_docs:
+      - income_certificate
+      - marks_card
+    rules:
+      - field: "annual_income"
+        op: "<="
+        value: "TODO_VERIFY"
+      - field: "marks_percentage"
+        op: ">="
+        value: "TODO_VERIFY"
+
+  - id: nsp_merit_cum_means_minorities
+    name: "Merit-cum-Means Scholarship for Professional & Technical Courses (Placeholder)"
+    provider: "Ministry of Minority Affairs (NSP)"
+    level: "Central / Professional & Technical"
+    source_url: "https://scholarships.gov.in/"
+    last_verified: "TODO_VERIFY"
+    validity_months: "TODO_VERIFY"
+    required_docs:
+      - income_certificate
+      - marks_card
+      - community_certificate
+    rules:
+      - field: "annual_income"
+        op: "<="
+        value: "TODO_VERIFY"
+      - field: "marks_percentage"
+        op: ">="
+        value: "TODO_VERIFY"
+
+  - id: state_post_matric_merit_aid
+    name: "State Post-Matric Tuition Fee & Maintenance Aid (Placeholder)"
+    provider: "State Directorate of Collegiate / Technical Education"
+    level: "State / Post-Matric"
+    source_url: "https://scholarships.gov.in/"
+    last_verified: "TODO_VERIFY"
+    validity_months: "TODO_VERIFY"
+    required_docs:
+      - income_certificate
+      - marks_card
+      - community_certificate
+    rules:
+      - field: "annual_income"
+        op: "<="
+        value: "TODO_VERIFY"
+      - field: "marks_percentage"
+        op: ">="
+        value: "TODO_VERIFY"
+      - field: "category"
+        op: "in"
+        value: "TODO_VERIFY"

@@ -1,0 +1,14 @@
+streamlit>=1.38.0
+PyMuPDF>=1.24.0
+pytesseract>=0.3.13
+Pillow>=10.4.0
+pydantic>=2.8.0
+PyYAML>=6.0.2
+rapidfuzz>=3.9.0
+opencv-python-headless>=4.10.0
+numpy>=1.26.0
+google-genai>=1.0.0
+groq>=0.11.0
+python-dotenv>=1.0.1
+fpdf2>=2.7.9
+pytest>=8.3.0

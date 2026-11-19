@@ -1,0 +1,8 @@
+{
+  "name": "SchemeSathi",
+  "description": "Document-first eligibility and rejection-risk checker for Indian student scholarships. Will my application survive verification?",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
