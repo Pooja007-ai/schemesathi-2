@@ -12,6 +12,7 @@ import {
   Upload,
   XCircle,
 } from 'lucide-react';
+import ChatAssistant from './components/ChatAssistant';
 import type {
   ConfidenceLevel,
   DocumentExtractionRecord,
@@ -1172,6 +1173,15 @@ export default function App() {
           </div>
         )}
       </main>
+      <ChatAssistant
+        page={page}
+        step={step}
+        queuedFiles={Object.values(queuedDocs)
+          .filter(Boolean)
+          .map((d) => d!.filename)}
+        healthChecks={healthChecks}
+        schemeResults={schemeResults}
+      />
     </div>
   );
 }

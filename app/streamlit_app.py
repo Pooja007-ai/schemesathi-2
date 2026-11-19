@@ -22,7 +22,7 @@ if str(ROOT_DIR) not in sys.path:
 from core.checks import run_all_health_checks
 from core.db import get_latest_eval_run, record_check_session
 from core.explain import build_global_fix_checklist
-from core.extract import ExtractionError, extract_fields_from_text
+from core.extract import ExtractionError, chat_document_doubts, extract_fields_from_text
 from core.ingest import ingest_document
 from core.models import (
     ConfidenceLevel,
@@ -132,6 +132,15 @@ def _init_state() -> None:
         "confirmed_profile": None,
         "health_checks": [],
         "scheme_results": [],
+        "chat_messages": [
+            {
+                "role": "model",
+                "text": (
+                    "Ask me any doubt about uploading synthetic scholarship documents, "
+                    "scan blur warnings, name matching, or what your checks mean."
+                ),
+            }
+        ],
     }
     for key, val in defaults.items():
         if key not in st.session_state:
@@ -573,6 +582,46 @@ def render_evaluation() -> None:
     st.table(rows)
 
 
+def render_chat_page() -> None:
+    st.header(t("chat_heading"))
+    st.write(t("chat_subtitle"))
+    st.markdown(f"<div class='ss-notice'>{t('prototype_notice')}</div>", unsafe_allow_html=True)
+
+    if st.button("Clear conversation"):
+        st.session_state["chat_messages"] = [st.session_state["chat_messages"][0]]
+        st.rerun()
+
+    for msg in st.session_state["chat_messages"]:
+        role = "assistant" if msg["role"] == "model" else "user"
+        with st.chat_message(role):
+            st.write(msg["text"])
+
+    prompt = st.chat_input(t("chat_placeholder"))
+    if prompt:
+        st.session_state["chat_messages"].append({"role": "user", "text": prompt})
+        with st.chat_message("user"):
+            st.write(prompt)
+
+        context = {
+            "checker_step": st.session_state.get("step"),
+            "health_checks": st.session_state.get("health_checks", []),
+            "scheme_verdicts": [
+                {"scheme_name": s["scheme_name"], "verdict": s["verdict"]}
+                for s in st.session_state.get("scheme_results", [])
+            ],
+        }
+        with st.chat_message("assistant"):
+            try:
+                reply = chat_document_doubts(
+                    st.session_state["chat_messages"], context=context
+                )
+                st.write(reply)
+                st.session_state["chat_messages"].append({"role": "model", "text": reply})
+            except ExtractionError as exc:
+                st.error(str(exc))
+        st.caption(t("chat_disclaimer"))
+
+
 def main() -> None:
     _init_state()
 
@@ -584,6 +633,7 @@ def main() -> None:
             t("nav_checker"),
             t("nav_how_it_works"),
             t("nav_evaluation"),
+            t("nav_chat"),
         ]
         chosen = st.radio("Navigation", pages, index=pages.index(st.session_state["page"]))
         st.session_state["page"] = chosen
@@ -604,8 +654,10 @@ def main() -> None:
         render_checker(float(fuzzy_threshold), float(sharpness_min))
     elif page == t("nav_how_it_works"):
         render_how_it_works()
-    else:
+    elif page == t("nav_evaluation"):
         render_evaluation()
+    else:
+        render_chat_page()
 
 
 if __name__ == "__main__":

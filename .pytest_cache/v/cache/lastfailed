@@ -1,12 +1,1 @@
-{
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[==-OBC-obc-True]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[==-General-SC-False]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[!=-General-SC-True]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[!=-SC-sc-False]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[in-OBC-expected12-True]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[in-General-expected13-False]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[not_in-OBC-expected14-True]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[not_in-General-expected15-False]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[contains-B.E. Computer Science-computer-True]": true,
-  "tests/test_rules.py::test_every_rule_operator_and_boundaries[contains-B.A. History-computer-False]": true
-}
+{}

@@ -113,3 +113,10 @@ export interface MetadataResponse {
   }>;
   eval_results: EvalResults | null;
 }
+
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'model';
+  text: string;
+}
+

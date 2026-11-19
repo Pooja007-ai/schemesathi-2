@@ -98,6 +98,7 @@ The repository also includes an Express + React web interface (`server.ts` + `sr
 - Real classical scan sharpness testing via OpenCV `cv2.Laplacian(...).var()`.
 - Real cross-document name matching via RapidFuzz `token_sort_ratio`.
 - Real structured JSON extraction via Gemini / Groq with Pydantic schema validation and 1 retry, plus manual entry fallback on failure.
+- Multi-turn Document Submission Assistant (`POST /api/chat` and Streamlit `Ask Doubts` page) using Gemini (`gemini-4-hydrogen`) with system instructions so it answers document-submission questions without ever deciding eligibility.
 - Real deterministic rule engine with boundary-tested operators (`<=`, `<`, `>=`, `>`, `==`, `!=`, `in`, `not_in`, `contains`) and downloadable Markdown/PDF reports.
 
 ### Limitations & Planned Work

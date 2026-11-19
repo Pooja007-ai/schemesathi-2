@@ -93,7 +93,8 @@ def _call_gemini(prompt: str, model_name: Optional[str] = None) -> str:
     from google import genai
     from google.genai import types
 
-    chosen_model = model_name or os.getenv("GEMINI_MODEL", "gemini-4-hydrogen").strip()
+    env_model = os.getenv("GEMINI_MODEL", "").strip()
+    chosen_model = model_name or (env_model if env_model.startswith("gemini-") else "gemini-4-hydrogen")
     client = genai.Client(
         api_key=api_key,
         http_options=types.HttpOptions(headers={"User-Agent": "aistudio-build"}),
@@ -199,3 +200,70 @@ def extract_fields_from_text(
     raise ExtractionError(
         f"LLM output failed Pydantic schema validation after 2 attempts: {last_error}"
     )
+
+
+CHAT_SYSTEM_INSTRUCTION = """You are the SchemeSathi Document Submission Assistant for Indian student scholarship verification.
+Answer doubts clearly and concisely about uploading documents (income certificate, marks card, community certificate), scan quality (OpenCV Laplacian variance—an image test, not ML), name matching (RapidFuzz string similarity—not ML), certificate validity, and what ELIGIBLE / ALMOST / NOT ELIGIBLE verdicts mean.
+
+Strict rules:
+1. Never decide scholarship eligibility or override deterministic Python rules in data/schemes.yaml.
+2. Placeholder schemes in schemes.yaml currently use TODO_VERIFY thresholds. Never invent official income caps or marks cutoffs; remind students to confirm thresholds on the official portal.
+3. Remind students to use synthetic documents only.
+"""
+
+
+def chat_document_doubts(
+    messages: list[dict[str, str]],
+    context: Optional[dict[str, Any]] = None,
+    model_name: Optional[str] = None,
+) -> str:
+    """Multi-turn Gemini chat for student document submission doubts (never decides eligibility)."""
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    if not api_key or api_key == "MY_GEMINI_API_KEY":
+        raise ExtractionError(
+            "GEMINI_API_KEY is not configured. Set it in .env or Secrets to use the Document Submission Assistant."
+        )
+    if not messages or messages[-1].get("role") != "user" or not messages[-1].get("text", "").strip():
+        raise ExtractionError("Latest chat message must be a non-empty user question.")
+
+    from google import genai
+    from google.genai import types
+
+    env_model = os.getenv("GEMINI_MODEL", "").strip()
+    chosen_model = model_name or (env_model if env_model.startswith("gemini-") else "gemini-4-hydrogen")
+    client = genai.Client(
+        api_key=api_key,
+        http_options=types.HttpOptions(headers={"User-Agent": "aistudio-build"}),
+    )
+
+    prior = [m for m in messages[:-1] if m.get("text", "").strip()]
+    first_user_idx = next((i for i, m in enumerate(prior) if m.get("role") == "user"), None)
+    trimmed = prior[first_user_idx:] if first_user_idx is not None else []
+
+    history: list[types.Content] = []
+    for msg in trimmed:
+        role = "user" if msg.get("role") == "user" else "model"
+        text = msg["text"].strip()
+        if history and history[-1].role == role:
+            prev_text = history[-1].parts[0].text or ""
+            history[-1].parts = [types.Part(text=f"{prev_text}\n{text}")]
+        else:
+            history.append(types.Content(role=role, parts=[types.Part(text=text)]))
+    if history and history[-1].role == "user":
+        history.pop()
+
+    sys_instr = CHAT_SYSTEM_INSTRUCTION
+    if context:
+        sys_instr += f"\n\nCurrent non-PII session context:\n{json.dumps(context)}"
+
+    chat = client.chats.create(
+        model=chosen_model,
+        history=history,
+        config=types.GenerateContentConfig(system_instruction=sys_instr),
+    )
+    response = chat.send_message(messages[-1]["text"].strip())
+    reply = getattr(response, "text", None)
+    if not reply:
+        raise ExtractionError("Gemini chat returned an empty response.")
+    return reply
+

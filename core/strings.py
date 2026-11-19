@@ -86,6 +86,11 @@ STRINGS: dict[str, dict[str, str]] = {
         "verdict_eligible": "ELIGIBLE",
         "verdict_almost": "ALMOST",
         "verdict_not_eligible": "NOT ELIGIBLE",
+        "nav_chat": "Ask Doubts",
+        "chat_heading": "Document Submission Assistant",
+        "chat_subtitle": "Ask doubts about uploading documents, scan quality, name matching, or what checks mean. Rules still decide eligibility.",
+        "chat_placeholder": "Ask a question about document submission...",
+        "chat_disclaimer": "AI explains document checks only; Python rules decide eligibility.",
     }
 }
 
